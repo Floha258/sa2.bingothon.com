@@ -1,6 +1,6 @@
-import PlayerData from './PlayerData';
+import TeamData from './TeamData.js';
 
 export type StandingValues = { wins: number; totalGames: number };
-type PlayerStanding = StandingValues & { player: PlayerData | string };
+type PlayerStanding = StandingValues & { player: TeamData | string };
 
 export default PlayerStanding;

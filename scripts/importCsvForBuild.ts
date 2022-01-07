@@ -2,11 +2,11 @@ import { createReadStream } from 'fs';
 import parse from 'csv-parse';
 import path from 'path';
 import MatchData from '../types/MatchData';
-import PlayerData from '../types/PlayerData';
+import TeamData from '../types/TeamData.js';
 
 export interface DataImport {
     matches: MatchData[];
-    players: Map<string, PlayerData>;
+    players: Map<string, TeamData>;
 }
 
 export default async function importCsvForBuild(): Promise<DataImport> {
@@ -18,8 +18,8 @@ export default async function importCsvForBuild(): Promise<DataImport> {
     const sliced = records.slice(1);
     const matchArray = sliced.map(entry => {
         return {
-            homePlayer: entry[0],
-            awayPlayer: entry[1],
+            homeTeam: entry[0],
+            awayTeam: entry[1],
             week: entry[2],
             division: entry[3],
             status: entry[4].toLowerCase(),

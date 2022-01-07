@@ -14,7 +14,7 @@ export interface ScheduleProps {
     divisions: string[];
 }
 
-const calendarWeeks = ['1', '2', '3', '4', '5', '6', '7', '8'];
+const calendarWeeks = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
 
 export default function Schedule(props: ScheduleProps) {
     const router = useRouter();
@@ -223,7 +223,7 @@ export default function Schedule(props: ScheduleProps) {
                                         key,
                                         true /* selectedWeek == 'none' */
                                     )}
-                                    hideHomeAway={key === 5}
+                                    //hideHomeAway={key === 5}
                                 />
                             </div>
                         ) : null;
@@ -256,8 +256,8 @@ function applyFilters(
     if (!!normalizedSearchQuery) {
         filteredMatches = filteredMatches.filter(
             match =>
-                match.homePlayer.toLowerCase().indexOf(normalizedSearchQuery) > -1 ||
-                match.awayPlayer.toLowerCase().indexOf(normalizedSearchQuery) > -1
+                match.homeTeam.toLowerCase().indexOf(normalizedSearchQuery) > -1 ||
+                match.awayTeam.toLowerCase().indexOf(normalizedSearchQuery) > -1
         );
     }
     return filteredMatches;
@@ -270,14 +270,14 @@ function getTableTitleByWeek(key: number | string, useWeekText?: boolean) {
     switch (parseInt(key as string)) {
         case 0:
             return 'Upcoming Matches';
-        case 5:
+        /*case 5:
             return 'Week 5: Neutral Week';
         case 9:
             return 'Week 1-3 Extra Match';
         case 10:
             return 'Week 4-5 Extra Match';
         case 11:
-            return 'Week 6-8 Extra Match';
+            return 'Week 6-8 Extra Match';*/
         default:
             return 'Week ' + key;
     }
@@ -286,9 +286,9 @@ function getTableTitleByWeek(key: number | string, useWeekText?: boolean) {
 export const getStaticProps: GetStaticProps = async context => {
     const base = Airtable.base(process.env.AIRTABLE_BASE_ID);
     const matches: MatchData[] = [];
-    await base('Season 3 Matches')
+    await base(process.env.AIRTABLE_MATCHES_TABLE_NAME)
         .select({
-            sort: [{ field: 'Match Time (UTC)' }],
+            sort: [{ field: 'Match Time UTC' }],
         })
         .eachPage((records, fetchNextPage) => {
             try {

@@ -29,15 +29,20 @@ export default function TwitchChannelImage(props: TwitchChannelImageProps) {
 
 function getChannelData(channel: string) {
     switch (channel) {
-        case 'SunshineCommunity':
-            return {
-                pictureUri: '/sunshinecommunity.png',
-                twitchLink: 'https://twitch.tv/sunshinecommunity',
-            };
         case 'Bingothon':
             return {
                 pictureUri: '/bingothon.png',
                 twitchLink: 'https://twitch.tv/bingothon',
+            };
+        case 'SonicAdventureEraSRComm':
+            return {
+                pictureUri: '/saesr.jpg',
+                twitchLink: 'https://twitch.tv/sonicadventureerasrcomm',
+            };
+        case 'SonicSpeedrunCommunity':
+            return {
+                pictureUri: '/ssc.jpg',
+                twitchLink: 'https://twitch.tv/sonicspeedruncommunity',
             };
     }
 }

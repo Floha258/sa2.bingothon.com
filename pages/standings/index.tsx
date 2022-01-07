@@ -2,13 +2,13 @@ import { GetStaticProps } from 'next';
 import StandingsTable, { StandingsTableProps } from '../../components/StandingsTable';
 import Header from '../../components/Header';
 import MatchData from '../../types/MatchData';
-import PlayerData from '../../types/PlayerData';
+import TeamData from '../../types/TeamData.js';
 import PlayerStanding, { StandingValues } from '../../types/PlayerStanding';
 import { useRouter } from 'next/router';
 import Airtable from 'airtable';
 import convertAirtableDataToPlayerData from '../../types/convertAirtableDataToPlayerData';
 export interface StandingsProps {
-    standings: PlayerData[];
+    standings: TeamData[];
 }
 
 export default function Standings(props: StandingsProps) {
@@ -25,7 +25,7 @@ export default function Standings(props: StandingsProps) {
     );
 }
 
-function computeStandings(divMapEntry: DivisionMap): PlayerStanding[] {
+/*function computeStandings(divMapEntry: DivisionMap): PlayerStanding[] {
     let resultMap = new Map<string, StandingValues>();
     seedResultMap(resultMap, divMapEntry.players);
     divMapEntry.matches.forEach(match => {
@@ -53,9 +53,9 @@ function computeStandings(divMapEntry: DivisionMap): PlayerStanding[] {
             : -1;
     });
     return standingArray;
-}
+}*/
 
-function seedResultMap(map: Map<string, StandingValues>, players: Map<string, PlayerData>) {
+function seedResultMap(map: Map<string, StandingValues>, players: Map<string, TeamData>) {
     Array.from(players.keys()).forEach(key => {
         map.set(key, { wins: 0, totalGames: 0 });
     });
@@ -74,9 +74,9 @@ function updateMapWithMatchPlayer(
     }
 }
 
-type DivisionMap = { matches: MatchData[]; players: Map<string, PlayerData> };
+//type DivisionMap = { matches: MatchData[]; players: Map<string, TeamData> };
 
-function splitIntoDivisions(matches: MatchData[], players: Map<string, PlayerData>) {
+/*function splitIntoDivisions(matches: MatchData[], players: Map<string, TeamData>) {
     let resultMap = new Map<string, DivisionMap>();
     matches.forEach(match => {
         if (resultMap.has(match.division)) {
@@ -84,7 +84,7 @@ function splitIntoDivisions(matches: MatchData[], players: Map<string, PlayerDat
         } else {
             resultMap.set(match.division, {
                 matches: [match],
-                players: new Map<string, PlayerData>(),
+                players: new Map<string, TeamData>(),
             });
         }
     });
@@ -92,20 +92,20 @@ function splitIntoDivisions(matches: MatchData[], players: Map<string, PlayerDat
         if (resultMap.has(player.division)) {
             resultMap.get(player.division).players.set(player.name, player);
         } else {
-            const newMap = new Map<string, PlayerData>();
+            const newMap = new Map<string, TeamData>();
             newMap.set(player.name, player);
             resultMap.set(player.division, { matches: [], players: newMap });
         }
     });
     return resultMap;
-}
+}*/
 
 export const getStaticProps: GetStaticProps = async context => {
-    const sortedPlayers: PlayerData[] = [];
+    const sortedPlayers: TeamData[] = [];
     const base = Airtable.base(process.env.AIRTABLE_BASE_ID);
-    await base('Season 3 Players')
+    await base(process.env.AIRTABLE_COMPETITORS_TABLE_NAME)
         .select({
-            sort: [{ field: 'Elo', direction: 'desc' }],
+            //sort: [{ field: 'Elo', direction: 'desc' }],
         })
         .eachPage((records, fetchNextPage) => {
             records.forEach(record => {

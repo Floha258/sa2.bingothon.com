@@ -1,16 +1,18 @@
 import { Record, FieldSet } from 'airtable';
-import PlayerData from './PlayerData';
+import TeamData from './TeamData.js';
 
-export default function convertAirtableDataToPlayerData(record: Record<FieldSet>): PlayerData {
+export default function convertAirtableDataToPlayerData(record: Record<FieldSet>): TeamData {
     return {
-        name: record.get('Name') as string,
-        primaryColor: (record.get('Primary') as string)?.toLowerCase() as any,
-        secondaryColor: (record.get('Secondary') as string)?.toLowerCase() as any,
-        country: (record.get('Country') as string)?.toLowerCase(),
+        name: record.get('Team Name') as string,
+        nameP1: record.get('Player 1') as string,
+        nameP2: record.get('Player 2') as string,
+        countryP1: (record.get('Country P1') as string)?.toLowerCase(),
+        countryP2: (record.get('Country P2') as string)?.toLowerCase(),
         //division: record.get('Division') as string,
-        twitchName: record.get('Twitch') as string,
-        pronouns: (record.get('Pronouns') as string) ?? '',
-        elo: record.get('Elo') as number,
+        twitchNameP1: record.get('Twitch P1') as string,
+        twitchNameP2: record.get('Twitch P2') as string,
+        pronounsP1: (record.get('Pronouns P1') as string) ?? '',
+        pronounsP2: (record.get('Pronouns P2') as string) ?? '',
         id: record.id,
     };
 }

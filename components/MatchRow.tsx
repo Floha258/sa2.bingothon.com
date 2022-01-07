@@ -45,11 +45,11 @@ export default function MatchRow(props: MatchRowProps) {
 
     const homeClassName =
         'text-right' +
-        (shouldShowSpoilers && match.homePlayer == match.winner ? ' font-bold bg-yellow-600' : '');
+        (shouldShowSpoilers && match.homeTeam == match.winner ? ' font-bold bg-yellow-600' : '');
 
     const awayClassName =
         'text-left' +
-        (shouldShowSpoilers && match.awayPlayer == match.winner ? ' font-bold bg-yellow-600' : '');
+        (shouldShowSpoilers && match.awayTeam == match.winner ? ' font-bold bg-yellow-600' : '');
 
     return (
         <>
@@ -63,18 +63,17 @@ export default function MatchRow(props: MatchRowProps) {
                 )}
                 <td>{timeContent}</td>
                 <td className={homeClassName}>
-                    <Link href={'/player/' + match.homePlayerId ?? match.homePlayer}>
-                        <span className="cursor-pointer">{match.homePlayer}</span>
+                    <Link href={'/team/' + match.homeTeamId ?? match.homeTeam}>
+                        <span className="cursor-pointer">{match.homeTeam}</span>
                     </Link>
                 </td>
                 <td>Vs.</td>
                 <td className={awayClassName}>
-                    <Link href={'/player/' + match.awayPlayerId ?? match.awayPlayer}>
-                        <span className="cursor-pointer">{match.awayPlayer}</span>
+                    <Link href={'/team/' + match.awayTeamId ?? match.awayTeam}>
+                        <span className="cursor-pointer">{match.awayTeam}</span>
                     </Link>
                 </td>
                 {/* <td className="hidden sm:table-cell">{match.division}</td> */}
-                <td>{match.format ?? 'TBD'}</td>
                 <td>
                     {match.channel ? (
                         match.channel == 'Offline' || match.channel == 'TBD' ? (

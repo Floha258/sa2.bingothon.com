@@ -30,14 +30,14 @@ export const getStaticProps: GetStaticProps = async context => {
     const WEEK_OF_YEAR_START = 29;
     const base = Airtable.base(process.env.AIRTABLE_BASE_ID);
     const matches: MatchData[] = [];
-    await base('Season 3 Matches')
+    await base(process.env.AIRTABLE_MATCHES_TABLE_NAME)
         .select({
-            filterByFormula: `AND(WEEKDAY({Match Time (EST)}, "Monday") = ${
+            filterByFormula: `AND(WEEKDAY({Match Time EST}, "Monday") = ${
                 parseInt(day as string) + 1
-            }, WEEKNUM({Match Time (EST)}, "Monday") = ${
+            }, WEEKNUM({Match Time EST), "Monday") = ${
                 WEEK_OF_YEAR_START + parseInt(calendarweek as string)
-            }, OR({Restream Channel} = "Bingothon", {Restream Channel} = "SunshineCommunity"))`,
-            sort: [{ field: 'Match Time (UTC)' }],
+            }, OR({Restream Channel} = "Bingothon", {Restream Channel} = "SonicAdventureEraSRComm", {Restream Channel} = "SonicSpeedrunCommunity"))`,
+            sort: [{ field: 'Match Time UTC' }],
         })
         .eachPage((records, fetchNextPage) => {
             try {
@@ -58,8 +58,8 @@ export const getStaticProps: GetStaticProps = async context => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const calendarWeeks = ['1', '2', '3', '4', '5', '6', '7', '8'];
-    const scheduleSlotDays = ['1', '2', '3', '4', '5'];
+    const calendarWeeks = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
+    const scheduleSlotDays = ['1', '2', '3', '4', '5', '6', '7'];
     const genedPaths = [];
     calendarWeeks.forEach(week => {
         scheduleSlotDays.forEach(day => {

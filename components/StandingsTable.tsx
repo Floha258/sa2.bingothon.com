@@ -1,10 +1,10 @@
 import BingosyncColors from '../types/BingosyncColors';
-import PlayerData from '../types/PlayerData';
+import TeamData from '../types/TeamData.js';
 import PlayerStanding from '../types/PlayerStanding';
-import PlayerHeader from './PlayerHeader';
+import TeamHeader from './TeamHeader'
 
 export interface StandingsTableProps {
-    standings: PlayerData[];
+    standings: TeamData[];
 }
 
 export default function StandingsTable(props: StandingsTableProps) {
@@ -16,17 +16,14 @@ export default function StandingsTable(props: StandingsTableProps) {
             <table className="w-full">
                 <tbody>
                     {props.standings.length > 0 &&
-                        props.standings.map(player => {
+                        props.standings.map(team => {
                             return (
-                                <tr key={player.name}>
+                                <tr key={team.name}>
                                     <td>
-                                        <PlayerHeader
-                                            playerName={player.name}
-                                            playerId={player.id}
-                                            bingosyncColorPrimary={player.primaryColor}
-                                            bingosyncColorSecondary={player.secondaryColor}
-                                            countryCode={player.country}
-                                            subHeader={player.elo.toString()}
+                                        <TeamHeader
+                                            teamName={team.name}
+                                            teamId={team.id}
+                                            countryCode={team.countryP1}
                                         />
                                     </td>
                                 </tr>

@@ -1,6 +1,6 @@
 import Cors from 'cors';
 import MatchData from '../../types/MatchData';
-import PlayerData from '../../types/PlayerData';
+import TeamData from '../../types/TeamData.js';
 import { RunData } from '../../types/RunData';
 import { v4 as uuidv4 } from 'uuid';
 import Airtable from 'airtable';
@@ -60,7 +60,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 return;
             }
         });
-    const playerMap = new Map<string, PlayerData>();
+    const playerMap = new Map<string, TeamData>();
     await base('Season 3 Players')
         .select()
         .eachPage((records, fetchNextPage) => {
@@ -85,8 +85,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
 function convertToSpeedControlFormat(
     match: MatchData,
-    homePlayer: PlayerData,
-    awayPlayer: PlayerData
+    homePlayer: TeamData,
+    awayPlayer: TeamData
 ): RunData {
     const homeTeamId = uuidv4();
     const awayTeamId = uuidv4();

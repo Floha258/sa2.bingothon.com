@@ -9,11 +9,10 @@ interface BoardProps {
     boardJson: ExtendedSquareData[];
     goalFeed: GoalEvent[];
     startTimestamp: number;
-    matchFormat: string;
 }
 
 export default function Board(props: BoardProps) {
-    const { boardJson, goalFeed, startTimestamp, matchFormat } = props;
+    const { boardJson, goalFeed, startTimestamp} = props;
 
     // While data is implied to come down in order, it's not guaranteed. Sort.
     boardJson.sort((first, second) => slotToNumber(first.slot) - slotToNumber(second.slot));
@@ -54,8 +53,7 @@ export default function Board(props: BoardProps) {
     const slicedClickList = postStartClicks.slice(0, matchSlice);
     const transformedBoard = transformBoardFromClicks(
         boardJson,
-        slicedClickList,
-        matchFormat == 'Draft' ? priorToStartClicks : undefined
+        slicedClickList
     );
     const slicedTimestamp =
         slicedClickList.length > 0

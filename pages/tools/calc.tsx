@@ -1,12 +1,12 @@
 import { GetStaticProps } from 'next';
 import Header from '../../components/Header';
-import PlayerData from '../../types/PlayerData';
+import TeamData from '../../types/TeamData.js';
 import { useRouter } from 'next/router';
 import Airtable from 'airtable';
 import convertAirtableDataToPlayerData from '../../types/convertAirtableDataToPlayerData';
 import React from 'react';
 export interface StandingsProps {
-    players: PlayerData[];
+    players: TeamData[];
 }
 
 export default function PointsCalc(props: StandingsProps) {
@@ -86,13 +86,13 @@ export default function PointsCalc(props: StandingsProps) {
     );
 }
 
-function calcExpectedScore(you: PlayerData, them: PlayerData) {
+function calcExpectedScore(you: TeamData, them: TeamData) {
     return 1 / (1 + 10 ** ((them.elo - you.elo) / 150));
 }
 
 function getPointsEarned(
-    you: PlayerData,
-    them: PlayerData
+    you: TeamData,
+    them: TeamData
 ): {
     win: number;
     loss: number;
@@ -104,7 +104,7 @@ function getPointsEarned(
 }
 
 export const getStaticProps: GetStaticProps = async context => {
-    const sortedPlayers: PlayerData[] = [];
+    const sortedPlayers: TeamData[] = [];
     const base = Airtable.base(process.env.AIRTABLE_BASE_ID);
     await base('Season 3 Players')
         .select({

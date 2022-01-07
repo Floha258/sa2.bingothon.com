@@ -10,39 +10,32 @@ export interface TwitchProps {
     twitchProfilePictureUrl: string;
 }
 
-export interface PlayerHeaderProps {
-    playerName: string;
+export interface TeamHeaderProps {
+    teamName: string;
     twitchProps?: TwitchProps;
-    bingosyncColorPrimary: BingosyncColors | BingosyncColorStrings;
-    bingosyncColorSecondary: BingosyncColors | BingosyncColorStrings;
     countryCode: string;
     subHeader?: string;
-    playerId?: string;
+    teamId?: string;
 }
 
-export default function PlayerHeader(props: PlayerHeaderProps) {
+export default function TeamHeader(props: TeamHeaderProps) {
     const flagIconClass = getFlagIconClass(props.countryCode);
-    const gradientClasses =
-        'from-' +
-        bingosyncColorsToTailwindColors(props.bingosyncColorPrimary) +
-        ' to-' +
-        bingosyncColorsToTailwindColors(props.bingosyncColorSecondary);
     return (
         <div>
             <div className="flex flex-row items-end">
                 <div>
                     <span className={'text-lg md:text-xl mr-5 flag-icon ' + flagIconClass}></span>
                 </div>
-                <Link href={'/player/' + (props.playerId ?? props.playerName)}>
+                <Link href={'/team/' + (props.teamId ?? props.teamName)}>
                     <span className="text-2xl md:text-3xl mx-5 font-bold text-white cursor-pointer">
-                        {props.playerName}
+                        {props.teamName}
                     </span>
                 </Link>
                 {props.twitchProps && (
                     <div className="relative h-20 w-20 mx-5">
                         <Image
                             layout="fill"
-                            alt={`${props.playerName}'s profile picture`}
+                            alt={`${props.teamName}'s profile picture`}
                             src={props.twitchProps.twitchProfilePictureUrl}
                         />
                         <div className="absolute h-5 w-5 bottom-0 left-0">
@@ -60,7 +53,6 @@ export default function PlayerHeader(props: PlayerHeaderProps) {
                     </span>
                 )}
             </div>
-            <div className={'my-1 md:my-3 h-1 md:h-2 bg-gradient-to-r ' + gradientClasses} />
         </div>
     );
 }

@@ -26,6 +26,8 @@ export default function StandingsTable(props: StandingsTableProps) {
                                     nameP2: '',
                                     countryP1: '',
                                     countryP2: '',
+                                    homeWinners: [],
+                                    awayWinners: [],
                                 };
                             } else {
                                 team = standingRow.team;

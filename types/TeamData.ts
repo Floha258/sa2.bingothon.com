@@ -12,5 +12,7 @@ export default interface TeamData {
     twitchNameP2?: string;
     pronounsP1?: string;
     pronounsP2?: string
+    homeWinners: string[]
+    awayWinners: string[]
     id?: string;
 }

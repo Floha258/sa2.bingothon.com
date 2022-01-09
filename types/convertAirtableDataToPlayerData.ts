@@ -13,6 +13,8 @@ export default function convertAirtableDataToPlayerData(record: Record<FieldSet>
         twitchNameP2: record.get('Twitch P2') as string,
         pronounsP1: (record.get('Pronouns P1') as string) ?? '',
         pronounsP2: (record.get('Pronouns P2') as string) ?? '',
+        homeWinners: (record.get('Winner (from Home Matches)') as string[]) ?? [],
+        awayWinners: (record.get('Winner (from Away Matches)') as string[]) ?? [],
         id: record.id,
     };
 }

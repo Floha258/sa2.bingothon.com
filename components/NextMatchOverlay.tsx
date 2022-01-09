@@ -21,9 +21,9 @@ export default function NextMatchOverlay(props: NextMatchOverlayProps) {
                 <div className="ml-4 mr-2 sm:ml-10 sm:mr-5">
                     <TimeSlug matchTime={match.matchTime} />
                 </div>{' '}
-                <div className="mx-2 sm:mx-5">{match.homePlayer}</div>
+                <div className="mx-2 sm:mx-5">{match.homeTeam}</div>
                 <div className="mx-2 sm:mx-5">Vs.</div>
-                <div className="mx-2 sm:mx-5">{match.awayPlayer}</div> @{' '}
+                <div className="mx-2 sm:mx-5">{match.awayTeam}</div> @{' '}
                 <div className="ml-2 mr-4 sm:ml-5 sm:mr-10">
                     <TwitchChannelImage channel={match.channel} />
                 </div>

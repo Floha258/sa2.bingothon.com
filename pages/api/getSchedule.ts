@@ -76,8 +76,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     let processedMatches = matches.map(match =>
         convertToSpeedControlFormat(
             match,
-            playerMap.get(match.homePlayerId),
-            playerMap.get(match.awayPlayerId)
+            playerMap.get(match.homeTeamId),
+            playerMap.get(match.awayTeamId)
         )
     );
     res.json(processedMatches);
@@ -85,57 +85,85 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
 function convertToSpeedControlFormat(
     match: MatchData,
-    homePlayer: TeamData,
-    awayPlayer: TeamData
+    homeTeam: TeamData,
+    awayTeam: TeamData
 ): RunData {
     const homeTeamId = uuidv4();
     const awayTeamId = uuidv4();
     return {
-        game: 'Super Mario Sunshine',
+        game: 'Sonic Adventure 2',
         gameTwitch: 'Super Mario Sunshine',
-        category: match.format,
+        category: 'Lockout Bingo',
         scheduledS: match.matchTime,
         id: uuidv4(),
         teams: [
             {
+                name: homeTeam.name,
                 id: homeTeamId,
                 players: [
                     {
-                        name: homePlayer.name,
+                        name: homeTeam.nameP1,
                         id: uuidv4(),
                         teamID: homeTeamId,
-                        country: convertCountryForNodeCG(homePlayer.country),
-                        pronouns: homePlayer.pronouns,
+                        country: convertCountryForNodeCG(homeTeam.countryP1),
+                        pronouns: homeTeam.pronounsP1,
                         social: {
-                            twitch: homePlayer.twitchName,
+                            twitch: homeTeam.twitchNameP1,
                         },
                         customData: {
-                            score: homePlayer.elo.toString(),
+                            /*score: homeTeam.,*/
                         },
                     },
+                    {
+                        name: homeTeam.nameP2,
+                        id: uuidv4(),
+                        teamID: homeTeamId,
+                        country: convertCountryForNodeCG(homeTeam.countryP2),
+                        pronouns: homeTeam.pronounsP2,
+                        social: {
+                            twitch: homeTeam.twitchNameP2
+                        },
+                        customData: {
+                        
+                        }
+                    }
                 ],
             },
             {
+                name: awayTeam.name,
                 id: awayTeamId,
                 players: [
                     {
-                        name: awayPlayer.name,
+                        name: awayTeam.nameP1,
                         id: uuidv4(),
                         teamID: awayTeamId,
-                        country: convertCountryForNodeCG(awayPlayer.country),
-                        pronouns: awayPlayer.pronouns,
+                        country: convertCountryForNodeCG(awayTeam.countryP1),
+                        pronouns: awayTeam.pronounsP1,
                         social: {
-                            twitch: awayPlayer.twitchName,
+                            twitch: awayTeam.twitchNameP1,
                         },
                         customData: {
-                            score: awayPlayer.elo.toString(),
+                            /*score: homeTeam.,*/
                         },
                     },
+                    {
+                        name: awayTeam.nameP2,
+                        id: uuidv4(),
+                        teamID: awayTeamId,
+                        country: convertCountryForNodeCG(awayTeam.countryP2),
+                        pronouns: awayTeam.pronounsP2,
+                        social: {
+                            twitch: awayTeam.twitchNameP2
+                        },
+                        customData: {
+            
+                        }
+                    }
                 ],
             },
         ],
         customData: {
-            Bingotype: convertFormatToBingotype(match.format),
+            Bingotype: 'lockout'//convertFormatToBingotype(match.format),
         },
     };
 }
@@ -146,6 +174,8 @@ function convertCountryForNodeCG(country: string): string {
             return 'ca/qc';
         case 'gb-eng':
             return 'gb/eng';
+        case 'gb-wls':
+            return 'gb/wls'
         default:
             return country.toLowerCase();
     }

@@ -9,7 +9,7 @@ module.exports = {
     theme: {
         extend: {
             backgroundImage: theme => ({
-                'tile-background': "url('/bingoleaguetile.png')",
+                'tile-background': "url('/sa2_background.png')",
                 'fr-qc': "url('/fr-qc.svg')",
             }),
             colors: {

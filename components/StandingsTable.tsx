@@ -22,6 +22,8 @@ export default function StandingsTable(props: StandingsTableProps) {
                                     <td>
                                         <TeamHeader
                                             teamName={team.name}
+                                            player1={team.nameP1}
+                                            player2={team.nameP2}
                                             teamId={team.id}
                                             countryCode={team.countryP1}
                                         />

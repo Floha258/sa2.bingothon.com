@@ -13,6 +13,8 @@ export interface TwitchProps {
 export interface TeamHeaderProps {
     teamName: string;
     twitchProps?: TwitchProps;
+    player1: string;
+    player2: string;
     countryCode: string;
     subHeader?: string;
     teamId?: string;
@@ -22,15 +24,20 @@ export default function TeamHeader(props: TeamHeaderProps) {
     const flagIconClass = getFlagIconClass(props.countryCode);
     return (
         <div>
-            <div className="flex flex-row items-end">
+            <div className="flex flex-row items-end mb-4">
                 <div>
                     <span className={'text-lg md:text-xl mr-5 flag-icon ' + flagIconClass}></span>
                 </div>
                 <Link href={'/team/' + (props.teamId ?? props.teamName)}>
                     <span className="text-2xl md:text-3xl mx-5 font-bold text-white cursor-pointer">
-                        {props.teamName}
+                        {props.teamName + "(" + props.player1 + " & " + props.player2 + ")"}
                     </span>
                 </Link>
+                <div>
+                    <span className={'text-2xl md:text-3xl ml-5 font-bold text-white'}>
+                        {"0 - 0"}
+                    </span>
+                </div>
                 {props.twitchProps && (
                     <div className="relative h-20 w-20 mx-5">
                         <Image

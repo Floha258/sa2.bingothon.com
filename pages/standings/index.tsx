@@ -14,9 +14,9 @@ export interface StandingsProps {
 export default function Standings(props: StandingsProps) {
     const router = useRouter();
     return (
-        <div className=" bg-tile-background bg-repeat min-h-screen">
+        <div className=" bg-tile-background bg-cover min-h-screen">
             {!router.query.hideHeader && (
-                <Header title="Super Mario Sunshine Bingo League - Standings" />
+                <Header title="Sonic Adventure Bingo League - Standings" />
             )}
             <main className="text-white flex flex-row flex-wrap w-1/2 m-auto">
                 <StandingsTable standings={props.standings} />

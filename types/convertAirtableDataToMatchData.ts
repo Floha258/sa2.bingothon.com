@@ -15,8 +15,8 @@ export default function convertAirtableDataToMatchData(record: Record<FieldSet>)
             : NaN,
         //format: (record.get('Match Format') as any) ?? 'TBD',
         channel: (record.get('Restream Channel') as any) ?? 'TBD',
-        winner: record.get('winning_player_name')
-            ? (record.get('winning_player_name')[0] as string) ?? ''
+        winner: record.get('Winner')
+            ? (record.get('Winner') as string) ?? ''
             : '',
         homeScore: (record.get('Home Score') as number) ?? NaN,
         awayScore: (record.get('Away Score') as number) ?? NaN,

@@ -17,10 +17,10 @@ export interface TeamProfileProps {
 
 export default function TeamProfile(props: TeamProfileProps) {
     return (
-        <div className="bg-tile-background bg-repeat min-h-screen overflow-x-auto">
+        <div className="bg-tile-background bg-cover min-h-screen overflow-x-auto">
             <Header
                 title={
-                    'Super Mario Sunshine Bingo League - Team Profile - ' +
+                    'Sonic Adventure 2 Bingo League - Team Profile - ' +
                     encodeURI(props.team.name)
                 }
             />

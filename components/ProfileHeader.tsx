@@ -19,7 +19,7 @@ export default function ProfileHeader(props: ProfileHeaderProps) {
     return (
         <div>
             <div className="flex flex-row items-end">
-                <span className="text-4xl md:text-5xl w-full mx-5 font-bold text-white">
+                <span className="text-4xl md:text-5xl w-full mx-auto font-bold text-white">
                     {teamData.name}
                 </span>
             </div>

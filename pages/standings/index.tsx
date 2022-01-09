@@ -7,7 +7,7 @@ import TeamStanding, { StandingValues } from '../../types/TeamStanding.js';
 import { useRouter } from 'next/router';
 import Airtable from 'airtable';
 import convertAirtableDataToPlayerData from '../../types/convertAirtableDataToPlayerData';
-import convertAirtableDataToMatchData from '../../types/convertAirtableDataToMatchData.js';
+import convertAirtableDataToMatchData from '../../types/convertAirtableDataToMatchData';
 
 export interface StandingsProps {
     teams: TeamData[];
@@ -42,8 +42,10 @@ function computeStandings(matchMapEntry: matchMap): TeamStanding[] {
     let resultMap = new Map<string, StandingValues>();
     seedResultMap(resultMap, matchMapEntry.teams);
     matchMapEntry.matches.forEach(match => {
-        updateMapWithMatchPlayer(resultMap, match.homeTeam, match.homeTeam == match.winner);
-        updateMapWithMatchPlayer(resultMap, match.awayTeam, match.awayTeam == match.winner);
+        if (match.status === 'played') {
+            updateMapWithMatchPlayer(resultMap, match.homeTeam, match.homeTeam == match.winner);
+            updateMapWithMatchPlayer(resultMap, match.awayTeam, match.awayTeam == match.winner);
+        }
     });
     const standingArray: TeamStanding[] = [];
     Array.from(resultMap.keys()).forEach(key => {

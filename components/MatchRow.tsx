@@ -55,7 +55,7 @@ export default function MatchRow(props: MatchRowProps) {
         <>
             <tr
                 onClick={match.status == 'played' ? toggleExpand : undefined}
-                className={'h-8 sm:h-12 lg:h-16 bg-opacity-40 text-center' + additionalClasses}>
+                className={'h-8 sm:h-12 lg:h-16 bg-opacity-30 text-center' + additionalClasses}>
                 {!forBroadcast && (
                     <td className="hidden sm:table-cell">
                         {match.status == 'played' && <ExpandIcon isExpanded={shouldShowSpoilers} />}
@@ -92,7 +92,7 @@ export default function MatchRow(props: MatchRowProps) {
                 </td>
             </tr>
             {shouldShowSpoilers && (
-                <tr className="h-16 bg-opacity-40 bg-blue-500">
+                <tr className="h-16 bg-opacity-20 bg-blue-500">
                     <td className="hidden sm:table-cell"></td>
                     <td className="text-center">Final Score:</td>
                     <td className={homeClassName}>{match.homeScore}</td>

@@ -3,57 +3,71 @@ import StandingsTable, { StandingsTableProps } from '../../components/StandingsT
 import Header from '../../components/Header';
 import MatchData from '../../types/MatchData';
 import TeamData from '../../types/TeamData.js';
-import PlayerStanding, { StandingValues } from '../../types/PlayerStanding';
+import TeamStanding, { StandingValues } from '../../types/TeamStanding.js';
 import { useRouter } from 'next/router';
 import Airtable from 'airtable';
 import convertAirtableDataToPlayerData from '../../types/convertAirtableDataToPlayerData';
+import convertAirtableDataToMatchData from '../../types/convertAirtableDataToMatchData.js';
+
 export interface StandingsProps {
-    standings: TeamData[];
+    teams: TeamData[];
+    matches: MatchData[];
 }
 
 export default function Standings(props: StandingsProps) {
     const router = useRouter();
     return (
-        <div className=" bg-tile-background bg-cover min-h-screen">
+        <div className=' bg-tile-background bg-cover min-h-screen'>
             {!router.query.hideHeader && (
-                <Header title="Sonic Adventure Bingo League - Standings" />
+                <Header title='Sonic Adventure Bingo League - Standings' />
             )}
-            <main className="text-white flex flex-row flex-wrap w-1/2 m-auto">
-                <StandingsTable standings={props.standings} />
+            <main className='text-white flex flex-row flex-wrap w-3/4 mx-auto'>
+                <StandingsTable standings={computeStandings(makeMatchMap(props.matches, props.teams))}/>
             </main>
         </div>
     );
 }
 
-/*function computeStandings(divMapEntry: DivisionMap): PlayerStanding[] {
-    let resultMap = new Map<string, StandingValues>();
-    seedResultMap(resultMap, divMapEntry.players);
-    divMapEntry.matches.forEach(match => {
-        updateMapWithMatchPlayer(resultMap, match.homePlayer, match.homePlayer == match.winner);
-        updateMapWithMatchPlayer(resultMap, match.awayPlayer, match.awayPlayer == match.winner);
+type matchMap = { matches: MatchData[]; teams: Map<string, TeamData> }
+
+function makeMatchMap(matches: MatchData[], teams: TeamData[]): matchMap {
+    let teamsMap = new Map<string, TeamData>();
+    teams?.forEach(team => {
+        teamsMap.set(team.name, team)
     });
-    const standingArray: PlayerStanding[] = [];
+    return {matches: matches, teams: teamsMap}
+}
+
+function computeStandings(matchMapEntry: matchMap): TeamStanding[] {
+    let resultMap = new Map<string, StandingValues>();
+    seedResultMap(resultMap, matchMapEntry.teams);
+    matchMapEntry.matches.forEach(match => {
+        updateMapWithMatchPlayer(resultMap, match.homeTeam, match.homeTeam == match.winner);
+        updateMapWithMatchPlayer(resultMap, match.awayTeam, match.awayTeam == match.winner);
+    });
+    const standingArray: TeamStanding[] = [];
     Array.from(resultMap.keys()).forEach(key => {
+        if (matchMapEntry.teams.has(key)) {}
         standingArray.push({
-            player: divMapEntry.players.has(key) ? divMapEntry.players.get(key) : key,
+            team: matchMapEntry.teams.has(key) ? matchMapEntry.teams.get(key) : key,
             ...resultMap.get(key),
         });
     });
     standingArray.sort((a, b) => {
-        const aName = typeof a.player === 'string' ? a.player : a.player.name;
-        const bName = typeof b.player === 'string' ? b.player : b.player.name;
+        const aName = typeof a.team === 'string' ? a.team : a.team.name;
+        const bName = typeof b.team === 'string' ? b.team : b.team.name;
         return b.wins - a.wins != 0
             ? b.wins - a.wins
             : a.totalGames - a.wins - (b.totalGames - b.wins) != 0
-            ? a.totalGames - a.wins - (b.totalGames - b.wins)
-            : b.totalGames - a.totalGames != 0
-            ? b.totalGames - a.totalGames
-            : aName > bName
-            ? 1
-            : -1;
+                ? a.totalGames - a.wins - (b.totalGames - b.wins)
+                : b.totalGames - a.totalGames != 0
+                    ? b.totalGames - a.totalGames
+                    : aName > bName
+                        ? 1
+                        : -1;
     });
     return standingArray;
-}*/
+}
 
 function seedResultMap(map: Map<string, StandingValues>, players: Map<string, TeamData>) {
     Array.from(players.keys()).forEach(key => {
@@ -64,7 +78,7 @@ function seedResultMap(map: Map<string, StandingValues>, players: Map<string, Te
 function updateMapWithMatchPlayer(
     resultMap: Map<string, StandingValues>,
     player: string,
-    isWinner: boolean
+    isWinner: boolean,
 ) {
     if (resultMap.has(player)) {
         resultMap.get(player).wins += isWinner ? 1 : 0;
@@ -102,6 +116,7 @@ function updateMapWithMatchPlayer(
 
 export const getStaticProps: GetStaticProps = async context => {
     const sortedPlayers: TeamData[] = [];
+    const matches: MatchData[] = [];
     const base = Airtable.base(process.env.AIRTABLE_BASE_ID);
     await base(process.env.AIRTABLE_COMPETITORS_TABLE_NAME)
         .select({
@@ -117,9 +132,24 @@ export const getStaticProps: GetStaticProps = async context => {
                 return;
             }
         });
+    await base(process.env.AIRTABLE_MATCHES_TABLE_NAME)
+        .select({
+            sort: [{ field: 'Match Time UTC' }],
+        })
+        .eachPage((records, fetchNextPage) => {
+            try {
+                records.forEach(record => {
+                    matches.push(convertAirtableDataToMatchData(record));
+                });
+                fetchNextPage();
+            } catch (e) {
+                return;
+            }
+        });
     return {
         props: {
-            standings: sortedPlayers,
+            teams: sortedPlayers,
+            matches: matches,
         },
         revalidate: 600,
     };

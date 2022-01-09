@@ -15,6 +15,8 @@ export interface TeamHeaderProps {
     twitchProps?: TwitchProps;
     player1: string;
     player2: string;
+    gamesWon: number;
+    gamesLost: number;
     countryCode: string;
     subHeader?: string;
     teamId?: string;
@@ -30,12 +32,12 @@ export default function TeamHeader(props: TeamHeaderProps) {
                 </div>
                 <Link href={'/team/' + (props.teamId ?? props.teamName)}>
                     <span className="text-2xl md:text-3xl mx-5 font-bold text-white cursor-pointer">
-                        {props.teamName + "(" + props.player1 + " & " + props.player2 + ")"}
+                        {props.teamName + " (" + props.player1 + " & " + props.player2 + ")"}
                     </span>
                 </Link>
                 <div>
                     <span className={'text-2xl md:text-3xl ml-5 font-bold text-white'}>
-                        {"0 - 0"}
+                        {props.gamesWon + ' - ' + props.gamesLost}
                     </span>
                 </div>
                 {props.twitchProps && (

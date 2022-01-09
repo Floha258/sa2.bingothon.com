@@ -1,10 +1,11 @@
 import BingosyncColors from '../types/BingosyncColors';
 import TeamData from '../types/TeamData.js';
-import PlayerStanding from '../types/PlayerStanding';
+import PlayerStanding from '../types/TeamStanding.js';
 import TeamHeader from './TeamHeader'
+import TeamStanding from '../types/TeamStanding.js';
 
 export interface StandingsTableProps {
-    standings: TeamData[];
+    standings: TeamStanding[];
 }
 
 export default function StandingsTable(props: StandingsTableProps) {
@@ -13,10 +14,22 @@ export default function StandingsTable(props: StandingsTableProps) {
             <div className="w-full text-3xl md:text-5xl font-bold text-center mb-5">
                 {'Standings'}
             </div>
-            <table className="w-full">
+            <table className="w-fulln mx-auto">
                 <tbody>
                     {props.standings.length > 0 &&
-                        props.standings.map(team => {
+                        props.standings.map(standingRow => {
+                            let team: TeamData;
+                            if (typeof standingRow.team === 'string') {
+                                team = {
+                                    name: standingRow.team,
+                                    nameP1: '',
+                                    nameP2: '',
+                                    countryP1: '',
+                                    countryP2: '',
+                                };
+                            } else {
+                                team = standingRow.team;
+                            }
                             return (
                                 <tr key={team.name}>
                                     <td>
@@ -26,6 +39,8 @@ export default function StandingsTable(props: StandingsTableProps) {
                                             player2={team.nameP2}
                                             teamId={team.id}
                                             countryCode={team.countryP1}
+                                            gamesWon={standingRow.wins}
+                                            gamesLost={standingRow.totalGames - standingRow.wins}
                                         />
                                     </td>
                                 </tr>

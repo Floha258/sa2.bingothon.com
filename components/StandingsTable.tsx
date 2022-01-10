@@ -33,14 +33,18 @@ export default function StandingsTable(props: StandingsTableProps) {
                                 team = standingRow.team;
                             }
                             return (
-                                <tr key={team.name}>
+                                <tr
+                                    key={team.name}
+                                    className={"bg-red-300 bg-opacity-30"}
+                                >
                                     <td>
                                         <TeamHeader
                                             teamName={team.name}
                                             player1={team.nameP1}
                                             player2={team.nameP2}
                                             teamId={team.id}
-                                            countryCode={team.countryP1}
+                                            countryCodeP1={team.countryP1}
+                                            countryCodeP2={team.countryP2}
                                             gamesWon={standingRow.wins}
                                             gamesLost={standingRow.totalGames - standingRow.wins}
                                         />

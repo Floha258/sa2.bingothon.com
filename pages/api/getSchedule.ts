@@ -33,22 +33,24 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     const base = Airtable.base(process.env.AIRTABLE_BASE_ID);
     let additionalFilter =
-        'OR({Restream Channel} = "Bingothon", {Restream Channel} = "SunshineCommunity")';
+        'OR({Restream Channel} = "Bingothon", {Restream Channel} = "SonicAdventureEraSRComm", {Restream Channel} = "SonicSpeedrunCommunity")';
     if (!!req.query.channel) {
         switch (req.query.channel) {
             case 'bingothon':
                 additionalFilter = '{Restream Channel} = "Bingothon"';
                 break;
-            case 'sunshine':
-                additionalFilter = '{Restream Channel} = "SunshineCommunity"';
+            case 'saesr':
+                additionalFilter = '{Restream Channel} = "SonicAdventureEraSRComm"';
                 break;
+            case 'ssc':
+                additionalFilter = '{Restream Channel} = "SonicSpeedrunCommunity"';
         }
     }
     const matches: MatchData[] = [];
-    await base('Season 3 Matches')
+    await base(process.env.AIRTABLE_MATCHES_TABLE_NAME)
         .select({
-            filterByFormula: `AND(DATETIME_DIFF({Match Time (UTC)}, NOW(),"hours") <= 24, DATETIME_DIFF(NOW(), {Match Time (UTC)}, "hours") <= 1, ${additionalFilter})`,
-            sort: [{ field: 'Match Time (UTC)' }],
+            filterByFormula: `AND(DATETIME_DIFF({Match Time UTC}, NOW(),"hours") <= 24, DATETIME_DIFF(NOW(), {Match Time UTC}, "hours") <= 1, ${additionalFilter})`,
+            sort: [{ field: 'Match Time UTC' }],
         })
         .eachPage((records, fetchNextPage) => {
             try {
@@ -61,7 +63,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             }
         });
     const playerMap = new Map<string, TeamData>();
-    await base('Season 3 Players')
+    await base(process.env.AIRTABLE_COMPETITORS_TABLE_NAME)
         .select()
         .eachPage((records, fetchNextPage) => {
             records.forEach(record => {

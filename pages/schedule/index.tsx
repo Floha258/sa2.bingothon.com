@@ -201,7 +201,7 @@ export default function Schedule(props: ScheduleProps) {
                             onChange={onSearchQueryChange}
                         />
                         <label className="ml-5 text-sm sm:text-lg" htmlFor="search-input">
-                            Player Search
+                            Team Search
                         </label>
                     </div>
                 </div>

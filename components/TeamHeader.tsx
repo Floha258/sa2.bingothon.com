@@ -17,18 +17,23 @@ export interface TeamHeaderProps {
     player2: string;
     gamesWon: number;
     gamesLost: number;
-    countryCode: string;
+    countryCodeP1: string;
+    countryCodeP2: string;
     subHeader?: string;
     teamId?: string;
 }
 
 export default function TeamHeader(props: TeamHeaderProps) {
-    const flagIconClass = getFlagIconClass(props.countryCode);
+    const flagIconClass1 = getFlagIconClass(props.countryCodeP1);
+    const flagIconClass2 = getFlagIconClass(props.countryCodeP2);
     return (
         <div>
             <div className="flex flex-row items-end mb-4">
                 <div>
-                    <span className={'text-lg md:text-xl mr-5 flag-icon ' + flagIconClass}></span>
+                    <span className={'text-lg md:text-xl mx-5 flag-icon ' + flagIconClass1}></span>
+                </div>
+                <div>
+                    <span className={'text-lg md:text-xl mr-5 flag-icon ' + flagIconClass2}></span>
                 </div>
                 <Link href={'/team/' + (props.teamId ?? props.teamName)}>
                     <span className="text-2xl md:text-3xl mx-5 font-bold text-white cursor-pointer">
@@ -36,7 +41,7 @@ export default function TeamHeader(props: TeamHeaderProps) {
                     </span>
                 </Link>
                 <div>
-                    <span className={'text-2xl md:text-3xl ml-5 font-bold text-white'}>
+                    <span className={'text-2xl md:text-3xl mx-5 font-bold text-white'}>
                         {props.gamesWon + ' - ' + props.gamesLost}
                     </span>
                 </div>

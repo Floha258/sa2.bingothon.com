@@ -21,7 +21,7 @@ export default function Standings(props: StandingsProps) {
             {!router.query.hideHeader && (
                 <Header title='Sonic Adventure Bingo League - Standings' />
             )}
-            <main className='text-white flex flex-row flex-wrap w-3/4 mx-auto'>
+            <main className='text-white flex flex-row flex-wrap w-7/8 mx-auto'>
                 <StandingsTable standings={computeStandings(makeMatchMap(props.matches, props.teams))}/>
             </main>
         </div>

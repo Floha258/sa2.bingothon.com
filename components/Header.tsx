@@ -30,10 +30,10 @@ export default function Header(props: { title: string }) {
                     <div className="mr-10">
                         <Link href="/">
                             <Image
-                                alt="Picture of a shine sprite from Super Mario Sunshine. Click here to return to the homepage."
-                                src="/shine.png"
+                                alt="Picture of the Bingo League Emblem. Click here to return to the homepage."
+                                src="/Bingo_Emblem.png"
                                 height={50}
-                                width={50}
+                                width={68}
                             />
                         </Link>
                     </div>

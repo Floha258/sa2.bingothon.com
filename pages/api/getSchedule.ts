@@ -94,7 +94,7 @@ function convertToSpeedControlFormat(
     const awayTeamId = uuidv4();
     return {
         game: 'Sonic Adventure 2',
-        gameTwitch: 'Super Mario Sunshine',
+        gameTwitch: 'Sonic Adventure 2: Battle',
         category: 'Lockout Bingo',
         scheduledS: match.matchTime,
         id: uuidv4(),

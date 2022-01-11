@@ -126,7 +126,7 @@ export default function Schedule(props: ScheduleProps) {
     );
     return (
         <div className="bg-tile-background bg-cover min-h-screen overflow-x-auto">
-            <Header title="Super Mario Sunshine Bingo league - Schedule" />
+            <Header title="Sonic Adventure 2 Bingo league - Schedule" />
             <main className="text-white flex flex-col">
                 <div className="flex flex-row items-baseline text-sm">
                     <div className="mx-5">

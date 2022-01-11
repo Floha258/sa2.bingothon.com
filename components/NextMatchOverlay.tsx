@@ -14,10 +14,10 @@ export default function NextMatchOverlay(props: NextMatchOverlayProps) {
     const futureBool = isFuture(match.matchTime * 1000);
     return (
         <div className="w-full xl:w-1/2 h-full mx-auto text-white flex flex-col">
-            <div className="text-md sm:text-2xl font-bold">
+            <div className="text-md sm:text-2xl font-bold mb-4">
                 {futureBool ? 'Upcoming Match' : 'Current Match'}
             </div>
-            <div className="text-sm flex flex-row justify-center sm:text-xl items-end">
+            <div className="text-sm flex flex-row justify-center sm:text-xl items-end mb-4">
                 <div className="ml-4 mr-2 sm:ml-10 sm:mr-5">
                     <TimeSlug matchTime={match.matchTime} />
                 </div>{' '}

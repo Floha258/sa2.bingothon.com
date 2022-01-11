@@ -89,25 +89,25 @@ export default function Home(props: HomeProps) {
                     </div>
                     <div className="flex flex-row justify-center">
                         <Link href="/upcoming">
-                            <div className="cursor-pointer transition-colors bg-yellow-300 hover:bg-yellow-500 rounded-md text-black font-bold m-2 p-2 text-2xl w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6">
+                            <div className="cursor-pointer transition-colors bg-sa2-red hover:bg-sa2-purple rounded-md text-black font-bold m-2 p-2 text-2xl w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6">
                                 Upcoming Matches
                             </div>
                         </Link>
                         <Link href="/standings">
-                            <div className="cursor-pointer transition-colors bg-yellow-300 hover:bg-yellow-500 rounded-md text-black font-bold m-2 p-2 text-2xl w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6">
+                            <div className="cursor-pointer transition-colors bg-sa2-red hover:bg-sa2-purple rounded-md text-black font-bold m-2 p-2 text-2xl w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6">
                                 Standings
                             </div>
                         </Link>
                     </div>
                     <div className="flex flex-row justify-center">
                         <a
-                            className="transition-colors bg-yellow-300 hover:bg-yellow-500 rounded-md text-black font-bold m-2 p-2 text-2xl w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6"
+                            className="transition-colors bg-sa2-red hover:bg-sa2-purple rounded-md text-black font-bold m-2 p-2 text-2xl w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6"
                             href="https://discord.gg/VCgnYrvYpF">
                             Join the Discord
                         </a>
                     </div>
                     {selectedMatch && (
-                        <div className="bg-tile-background bg-repeat fixed bottom-0 py-2 h-24 left-0 w-full">
+                        <div className="bg-tile-background bg-cover fixed bottom-0 py-2 h-32 left-0 w-full">
                             <NextMatchOverlay match={selectedMatch} />
                         </div>
                     )}
@@ -123,7 +123,7 @@ export const getStaticProps: GetStaticProps = async context => {
     await base(process.env.AIRTABLE_MATCHES_TABLE_NAME)
         .select({
             filterByFormula:
-                'AND(DATETIME_DIFF({Match Time UTC}, NOW(),"hours") <= 24, OR({Restream Channel} = "Bingothon", {Restream Channel} = "SunshineCommunity"))',
+                'AND(DATETIME_DIFF({Match Time UTC}, NOW(),"hours") <= 24, OR({Restream Channel} = "Bingothon", {Restream Channel} = "SonicAdventureEraSRComm", {Restream Channel} = "SonicSpeedrunCommunity"))',
             sort: [{ field: 'Match Time UTC' }],
         })
         .eachPage((records, fetchNextPage) => {

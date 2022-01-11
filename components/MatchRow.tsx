@@ -32,11 +32,11 @@ export default function MatchRow(props: MatchRowProps) {
         timeContent = 'TBD';
     }
     if (match.status == 'played') {
-        additionalClasses += ' bg-blue-500';
+        additionalClasses += ' bg-sa2-blue';
     } else if (match.status == 'unscheduled') {
-        additionalClasses += ' bg-red-300';
+        additionalClasses += ' bg-sa2-red';
     } else if (match.status == 'scheduled') {
-        additionalClasses += ' bg-yellow-500';
+        additionalClasses += ' bg-sa2-purple';
     }
 
     if (forBroadcast) {
@@ -45,11 +45,11 @@ export default function MatchRow(props: MatchRowProps) {
 
     const homeClassName =
         'text-right' +
-        (shouldShowSpoilers && match.homeTeam == match.winner ? ' font-bold bg-yellow-600' : '');
+        (shouldShowSpoilers && match.homeTeam == match.winner ? ' font-bold bg-opacity-70 bg-sa2-red' : '');
 
     const awayClassName =
         'text-left' +
-        (shouldShowSpoilers && match.awayTeam == match.winner ? ' font-bold bg-yellow-600' : '');
+        (shouldShowSpoilers && match.awayTeam == match.winner ? ' font-bold bg-opacity-70 bg-sa2-red' : '');
 
     return (
         <>
@@ -92,18 +92,13 @@ export default function MatchRow(props: MatchRowProps) {
                 </td>
             </tr>
             {shouldShowSpoilers && (
-                <tr className="h-16 bg-opacity-20 bg-blue-500">
+                <tr className="h-16 bg-opacity-20 bg-sa2-blue">
                     <td className="hidden sm:table-cell"></td>
                     <td className="text-center">Final Score:</td>
                     <td className={homeClassName}>{match.homeScore}</td>
                     <td className="text-center"> - </td>
                     <td className={awayClassName}>{match.awayScore}</td>
                     {/* <td className="hidden sm:table-cell"></td> */}
-                    <td className={'text-center'}>
-                        <Link href={'/match/' + match.matchId}>
-                            <span className="cursor-pointer">{'Board Details'}</span>
-                        </Link>
-                    </td>
                     <td className={'text-center'}>
                         {match.matchVod ? (
                             <a className="cursor-pointer" target="_blank" href={match.matchVod}>

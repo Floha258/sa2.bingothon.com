@@ -23,6 +23,9 @@ module.exports = {
                 'bingosync-brown': '#AB5C23',
                 'bingosync-pink': '#ED86AA',
                 'bingosync-yellow': '#D8D014',
+                'sa2-red': '#59182a',
+                'sa2-blue': '#08023c',
+                'sa2-purple': '#cc19f740',
             },
             typography: {
                 DEFAULT: {

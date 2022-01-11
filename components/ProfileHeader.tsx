@@ -18,12 +18,12 @@ export default function ProfileHeader(props: ProfileHeaderProps) {
         bingosyncColorsToTailwindColors(playerData.secondaryColor);*/
     return (
         <div>
-            <div className="flex flex-row items-end">
+            <div className="flex flex-row items-end mb-4">
                 <span className="text-4xl md:text-5xl w-full mx-auto font-bold text-white">
                     {teamData.name}
                 </span>
             </div>
-            <div className="flex flex-row items-end">
+            <div className="flex flex-row items-end mb-5">
                 <div>
                     <span className={'text-2xl md:text-3xl mr-5 flag-icon ' + flagIconClass1}></span>
                 </div>

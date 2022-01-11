@@ -22,7 +22,7 @@ export default function ScheduleTable(props: ScheduleTableProps) {
                 {props.tableTitle}
             </div>
             <table className="w-full mx-auto table-auto sm:table-fixed">
-                <thead className={theadClassName + ' bg-opacity-40 bg-yellow-700'}>
+                <thead className={theadClassName + ' bg-opacity-60 bg-sa2-red'}>
                     <tr>
                         {!props.forBroadcast && (
                             <th className="hidden sm:w-1/12 sm:table-cell"></th>

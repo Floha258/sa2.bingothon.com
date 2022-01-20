@@ -63,6 +63,9 @@ export default function Schedule(props: ScheduleProps) {
         searchQuery
     );
     filteredMatches.forEach(match => {
+        if (!match.week) {
+            match.week = '13';
+        }
         if (matchMap.has(match.week)) {
             matchMap.get(match.week).push(match);
         } else {
@@ -278,6 +281,8 @@ function getTableTitleByWeek(key: number | string, useWeekText?: boolean) {
             return 'Week 4-5 Extra Match';
         case 11:
             return 'Week 6-8 Extra Match';*/
+        case 13:
+            return 'Unscheduled Matches';
         default:
             return 'Week ' + key;
     }

@@ -92,7 +92,7 @@ export default function MatchRow(props: MatchRowProps) {
                     )}
                 </td>
             </tr>
-            {!forBroadcast && (
+            {!forBroadcast && props.comms && (
                 <tr className={'h-6 sm:h-8 lg:h-10 bg-opacity-30 text-center' + additionalClasses}>
                     <td colSpan={6} className="w-1/2 text-center justify-center">{props.comms}</td>
                 </tr>)}

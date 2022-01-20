@@ -47,10 +47,27 @@ export default function ScheduleTable(props: ScheduleTableProps) {
                                 match={match}
                                 forceSpoilers={props.forceSpoilers}
                                 forBroadcast={props.forBroadcast}
+                                comms={commsToString(match.commentators)}
                             />
                         ))}
                 </tbody>
             </table>
         </div>
     );
+}
+
+function commsToString(comms: string[] | 'None') : string {
+    let string = 'No Commentators';
+    if (comms !== 'None') {
+        string = 'Commentators: ';
+        comms.forEach((comm, i) => {
+            if (i < comms.length - 1) {
+                string += comm + ', ';
+            }
+            else {
+                string += comm;
+            }
+        })
+        return string;
+    }
 }

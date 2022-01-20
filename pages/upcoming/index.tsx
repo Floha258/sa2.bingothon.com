@@ -30,7 +30,7 @@ export default function Schedule(props: ScheduleProps) {
                     {matchSet.length > 0 ? (
                         <ScheduleTable
                             matches={matchSet}
-                            tableTitle={'Upcoming Matches' + router.query.broadcast ? ' (All Times in EST)' : ''}
+                            tableTitle={'Upcoming Matches' + (router.query.broadcast ? ' (All Times in EST)' : '')}
                             forBroadcast={!!router.query.broadcast}
                         />
                     ) : (

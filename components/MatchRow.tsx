@@ -10,6 +10,7 @@ export interface MatchRowProps {
     match: MatchData;
     forceSpoilers?: boolean;
     forBroadcast?: boolean;
+    comms: string;
 }
 
 export default function MatchRow(props: MatchRowProps) {
@@ -38,39 +39,39 @@ export default function MatchRow(props: MatchRowProps) {
     } else if (match.status == 'scheduled') {
         additionalClasses += ' bg-purple-gradient';
     }
-
+    
     if (forBroadcast) {
         additionalClasses += ' xl:h-24';
     }
-
+    
     const homeClassName =
         'text-right' +
         (shouldShowSpoilers && match.homeTeam == match.winner ? ' font-bold bg-opacity-70 bg-sa2-red' : '');
-
+    
     const awayClassName =
         'text-left' +
         (shouldShowSpoilers && match.awayTeam == match.winner ? ' font-bold bg-opacity-70 bg-sa2-red' : '');
-
+    
     return (
         <>
             <tr
                 onClick={match.status == 'played' ? toggleExpand : undefined}
                 className={'h-8 sm:h-12 lg:h-16 bg-opacity-30 text-center' + additionalClasses}>
                 {!forBroadcast && (
-                    <td className="hidden sm:table-cell">
+                    <td className='hidden sm:table-cell'>
                         {match.status == 'played' && <ExpandIcon isExpanded={shouldShowSpoilers} />}
                     </td>
                 )}
                 <td>{timeContent}</td>
                 <td className={homeClassName}>
                     <Link href={'/team/' + match.homeTeamId ?? match.homeTeam}>
-                        <span className="cursor-pointer">{match.homeTeam}</span>
+                        <span className='cursor-pointer'>{match.homeTeam}</span>
                     </Link>
                 </td>
                 <td>Vs.</td>
                 <td className={awayClassName}>
                     <Link href={'/team/' + match.awayTeamId ?? match.awayTeam}>
-                        <span className="cursor-pointer">{match.awayTeam}</span>
+                        <span className='cursor-pointer'>{match.awayTeam}</span>
                     </Link>
                 </td>
                 {/* <td className="hidden sm:table-cell">{match.division}</td> */}
@@ -79,7 +80,7 @@ export default function MatchRow(props: MatchRowProps) {
                         match.channel == 'Offline' || match.channel == 'TBD' ? (
                             match.channel
                         ) : (
-                            <div className="flex flex-row justify-center">
+                            <div className='flex flex-row justify-center'>
                                 <TwitchChannelImage
                                     channel={match.channel}
                                     forBroadcast={forBroadcast}
@@ -91,17 +92,21 @@ export default function MatchRow(props: MatchRowProps) {
                     )}
                 </td>
             </tr>
+            {!forBroadcast && (
+                <tr className={'h-6 sm:h-8 lg:h-10 bg-opacity-30 text-center' + additionalClasses}>
+                    <td colSpan={6} className="w-1/2 text-center justify-center">{props.comms}</td>
+                </tr>)}
             {shouldShowSpoilers && (
-                <tr className="h-16 bg-opacity-20 bg-sa2-blue">
-                    <td className="hidden sm:table-cell"></td>
-                    <td className="text-center">Final Score:</td>
+                <tr className='h-16 bg-opacity-20 bg-sa2-blue'>
+                    <td className='hidden sm:table-cell'></td>
+                    <td className='text-center'>Final Score:</td>
                     <td className={homeClassName}>{match.homeScore}</td>
-                    <td className="text-center"> - </td>
+                    <td className='text-center'> -</td>
                     <td className={awayClassName}>{match.awayScore}</td>
                     {/* <td className="hidden sm:table-cell"></td> */}
                     <td className={'text-center'}>
                         {match.matchVod ? (
-                            <a className="cursor-pointer" target="_blank" href={match.matchVod}>
+                            <a className='cursor-pointer' target='_blank' href={match.matchVod}>
                                 Match Vod
                             </a>
                         ) : match.channel === 'Offline' ? (

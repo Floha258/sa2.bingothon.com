@@ -11,6 +11,9 @@ module.exports = {
             backgroundImage: theme => ({
                 'tile-background': "url('/SA2_background.png')",
                 'fr-qc': "url('/fr-qc.svg')",
+                'purple-gradient': 'linear-gradient(90deg, rgba(26, 26, 98, 0.87) 3%, rgba(36,0,15,0.8799720571822479) 61%)',
+                'blue-gradient': 'linear-gradient(90deg, rgba(9,9,121,0.8659664549413515) 3%, rgba(36,0,15,0.8799720571822479) 61%)',
+                'red-gradient': 'linear-gradient(109deg, rgba(64,4,1,0.6875700280112045) 0%, rgba(63,4,0,0.8799720571822479) 50%, rgba(184,185,201,0.4875700280112045) 100%);',
             }),
             colors: {
                 'bingosync-orange': '#FF9C12',

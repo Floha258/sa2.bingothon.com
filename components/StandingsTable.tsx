@@ -35,7 +35,7 @@ export default function StandingsTable(props: StandingsTableProps) {
                             return (
                                 <tr
                                     key={team.name}
-                                    className={"bg-sa2-purple bg-opacity-30"}
+                                    className={"bg-purple-gradient"}
                                 >
                                     <td>
                                         <TeamHeader

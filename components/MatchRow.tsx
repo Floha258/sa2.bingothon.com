@@ -32,11 +32,11 @@ export default function MatchRow(props: MatchRowProps) {
         timeContent = 'TBD';
     }
     if (match.status == 'played') {
-        additionalClasses += ' bg-sa2-blue';
+        additionalClasses += ' bg-blue-gradient';
     } else if (match.status == 'unscheduled') {
-        additionalClasses += ' bg-sa2-red';
+        additionalClasses += ' bg-red-gradient';
     } else if (match.status == 'scheduled') {
-        additionalClasses += ' bg-sa2-purple';
+        additionalClasses += ' bg-purple-gradient';
     }
 
     if (forBroadcast) {

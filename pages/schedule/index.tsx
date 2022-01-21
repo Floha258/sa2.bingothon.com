@@ -128,7 +128,7 @@ export default function Schedule(props: ScheduleProps) {
         (a, b) => parseInt(a as string) - parseInt(b as string)
     );
     return (
-        <div className="bg-tile-background bg-cover min-h-screen overflow-x-auto">
+        <div className="bg-tile-background bg-cover bg-fixed min-h-screen overflow-x-auto">
             <Header title="Sonic Adventure 2 Bingo league - Schedule" />
             <main className="text-white flex flex-col">
                 <div className="flex flex-row items-baseline text-sm">

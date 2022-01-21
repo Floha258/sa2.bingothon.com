@@ -21,7 +21,7 @@ export default function Schedule(props: ScheduleProps) {
         });
     }
     return (
-        <div className="bg-tile-background bg-cover min-h-screen overflow-x-auto">
+        <div className="bg-tile-background bg-cover bg-fixed min-h-screen overflow-x-auto">
             {!router.query.broadcast && (
                 <Header title="Sonic Adventure 2 Bingo League - Upcoming Matches" />
             )}

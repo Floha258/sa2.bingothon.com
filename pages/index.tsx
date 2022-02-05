@@ -123,7 +123,7 @@ export const getStaticProps: GetStaticProps = async context => {
     await base(process.env.AIRTABLE_MATCHES_TABLE_NAME)
         .select({
             filterByFormula:
-                'AND(DATETIME_DIFF({Match Time UTC}, NOW(),"hours") <= 24, OR({Restream Channel} = "Bingothon", {Restream Channel} = "SonicAdventureEraSRComm", {Restream Channel} = "SonicSpeedrunCommunity"))',
+                'AND(DATETIME_DIFF({Match Time UTC}, NOW(),"hours") <= 24, OR({Restream Channel} = "Bingothon", {Restream Channel} = "SAESR_Events", {Restream Channel} = "SonicSpeedrunCommunity"))',
             sort: [{ field: 'Match Time UTC' }],
         })
         .eachPage((records, fetchNextPage) => {

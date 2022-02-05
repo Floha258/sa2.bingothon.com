@@ -33,14 +33,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     const base = Airtable.base(process.env.AIRTABLE_BASE_ID);
     let additionalFilter =
-        'OR({Restream Channel} = "Bingothon", {Restream Channel} = "SonicAdventureEraSRComm", {Restream Channel} = "SonicSpeedrunCommunity")';
+        'OR({Restream Channel} = "Bingothon", {Restream Channel} = "SAESR_Events", {Restream Channel} = "SonicSpeedrunCommunity")';
     if (!!req.query.channel) {
         switch (req.query.channel) {
             case 'bingothon':
                 additionalFilter = '{Restream Channel} = "Bingothon"';
                 break;
             case 'saesr':
-                additionalFilter = '{Restream Channel} = "SonicAdventureEraSRComm"';
+                additionalFilter = '{Restream Channel} = "SAESR_Events"';
                 break;
             case 'ssc':
                 additionalFilter = '{Restream Channel} = "SonicSpeedrunCommunity"';

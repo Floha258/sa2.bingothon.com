@@ -92,12 +92,12 @@ export default function MatchRow(props: MatchRowProps) {
                     )}
                 </td>
             </tr>
-            {!forBroadcast && props.comms && (
+            {!forBroadcast && props.comms && !(match.status === "played") && (
                 <tr className={'h-6 sm:h-8 lg:h-10 bg-opacity-30 text-center' + additionalClasses}>
                     <td colSpan={6} className="w-1/2 text-center justify-center">{props.comms}</td>
                 </tr>)}
             {shouldShowSpoilers && (
-                <tr className='h-16 bg-opacity-20 bg-sa2-blue'>
+                <tr className={'h-16 bg-opacity-30 bg-sa2-blue' + additionalClasses}>
                     <td className='hidden sm:table-cell'></td>
                     <td className='text-center'>Final Score:</td>
                     <td className={homeClassName}>{match.homeScore}</td>

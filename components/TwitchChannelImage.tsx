@@ -34,10 +34,10 @@ function getChannelData(channel: string) {
                 pictureUri: '/bingothon.png',
                 twitchLink: 'https://twitch.tv/bingothon',
             };
-        case 'SonicAdventureEraSRComm':
+        case 'SAESR_Events':
             return {
                 pictureUri: '/saesr.jpg',
-                twitchLink: 'https://twitch.tv/sonicadventureerasrcomm',
+                twitchLink: 'https://twitch.tv/saesr_events',
             };
         case 'SonicSpeedrunCommunity':
             return {

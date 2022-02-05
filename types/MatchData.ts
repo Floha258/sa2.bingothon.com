@@ -8,7 +8,7 @@ export default interface MatchData {
     status: 'unscheduled' | 'scheduled' | 'played';
     matchTime: number;
     //format: 'Lockout' | 'Invasion' | 'Connect 5' | 'Draft' | 'Row Control' | 'TBD';
-    channel?: 'Bingothon' | 'SonicAdventureEraSRComm' | 'SonicSpeedrunCommunity' | 'Offline' | 'TBD';
+    channel?: 'Bingothon' | 'SAESR_Events' | 'SonicSpeedrunCommunity' | 'Offline' | 'TBD';
     winner?: string;
     homeScore?: number;
     awayScore?: number;
